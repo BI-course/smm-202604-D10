@@ -3,6 +3,8 @@ import joblib
 import numpy as np
 import pandas as pd
 import os
+from sklearn.compose import ColumnTransformer
+from sklearn.pipeline import Pipeline
 
 # -----------------------------------------------------------------------
 # Load all four persisted artifacts ONCE, at module import time. Streamlit
@@ -42,6 +44,48 @@ clustering_kmeans = clustering_artifact["kmeans"]
 recommendation_lookup = arm_artifact["recommendation_lookup"]
 sku_lookup = arm_artifact["sku_lookup"]
 
+# -----------------------------------------------------------------------
+# Dropdown options for Owner Education Level.
+# A dropdown that feeds a model must offer exactly the categories the model
+# was trained on. Instead of hard-coding them (which can drift out of sync
+# with the training data), read them from the fitted encoder inside each
+# pipeline. The hard-coded list is only a fallback if the encoder's
+# categories cannot be found.
+# -----------------------------------------------------------------------
+FALLBACK_EDUCATION_LEVELS = ["Primary", "Secondary", "Tertiary", "Postgraduate"]
+
+
+def get_encoder_categories(pipeline, column):
+    """Return the categories the pipeline's encoder was fitted on for `column`."""
+    for step in pipeline.named_steps.values():
+        if isinstance(step, ColumnTransformer):
+            for _, transformer, cols in step.transformers_:
+                if isinstance(cols, str):
+                    cols = [cols]
+                if not isinstance(cols, (list, tuple, np.ndarray, pd.Index)):
+                    continue
+                cols = list(cols)
+                if column not in cols:
+                    continue
+                if isinstance(transformer, Pipeline):
+                    encoders = [t for _, t in transformer.steps]
+                else:
+                    encoders = [transformer]
+                for encoder in encoders:
+                    if hasattr(encoder, "categories_"):
+                        return [str(c) for c in encoder.categories_[cols.index(column)]]
+    return None
+
+
+regression_education_levels = (
+    get_encoder_categories(regression_pipeline, "owner_education_level")
+    or FALLBACK_EDUCATION_LEVELS
+)
+classification_education_levels = (
+    get_encoder_categories(classification_pipeline, "owner_education_level")
+    or FALLBACK_EDUCATION_LEVELS
+)
+
 st.set_page_config(page_title="BBT 4206 Model Validation Demos", page_icon="\U0001F4CA", layout="centered")
 st.title("BBT 4206 -- Model Validation Demos")
 
@@ -60,11 +104,11 @@ with tab_regression:
         quarter = st.text_input("Quarter", "Q3")
         business_age_years = st.number_input("Business Age (years)", value=4.5)
         num_employees = st.number_input("Number of Employees", value=12)
-        # These four categories are the exact set the pipeline's
-        # OrdinalEncoder was fitted on.
+        # Options are read from the pipeline's fitted encoder (see above).
         owner_education_level = st.selectbox(
             "Owner Education Level",
-            ["Primary", "Secondary", "Tertiary", "Postgraduate"], index=1)
+            regression_education_levels,
+            index=min(1, len(regression_education_levels) - 1))
         monthly_marketing_spend_kes = st.number_input("Monthly Marketing Spend (KES)", value=45000)
         avg_daily_foot_traffic = st.number_input(
             "Avg Daily Foot Traffic (leave 0 if not applicable)", value=0)
@@ -105,7 +149,9 @@ with tab_classification:
         loan_purpose = st.text_input("Loan Purpose", "Working Capital")
         owner_education_level2 = st.selectbox(
             "Owner Education Level",
-            ["Primary", "Secondary", "Tertiary", "Postgraduate"], index=1, key="oel2")
+            classification_education_levels,
+            index=min(1, len(classification_education_levels) - 1),
+            key="oel2")
         business_age_years2 = st.number_input("Business Age (years)", value=2.1, key="bay2")
         num_employees2 = st.number_input("Number of Employees", value=4, key="ne2")
         monthly_revenue_kes = st.number_input("Monthly Revenue (KES)", value=850000)
