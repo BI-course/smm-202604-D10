@@ -2,51 +2,51 @@
 
 ## Student Details and Individual Member Contributions
 
-**Name of the team on GitHub Classroom:**
+**Name of the team on GitHub Classroom:** D10
 
 **Member 1:**
 
 | **Details**                                                                                                                           | **Comment** |
 |:--------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| **Student ID**                                                                                                                        |             |
-| **Name**                                                                                                                              |             |
-| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** |             |
+| **Student ID**                                                                                                                        | 146832 |
+| **Name**                                                                                                                              | Wayne Nganju |
+| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** | As group leader, I integrated D10's four saved models into `api.py`, matched the dependency versions to the training environment, and verified the prediction endpoints locally, through Docker with Gunicorn and Nginx, and on Render. I learned how to load artifacts with different structures, resolve scikit-learn version mismatches, and verify deployments by sending requests to the prediction endpoints. [wayne-practice](https://github.com/BI-course/smm-202604-D10/tree/wayne-practice) |
 
 **Member 2:**
 
 | **Details**                                                                                                                           | **Comment** |
 |:--------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| **Student ID**                                                                                                                        |             |
-| **Name**                                                                                                                              |             |
-| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** |             |
+| **Student ID**                                                                                                                        | 150567 |
+| **Name**                                                                                                                              | Natasha Njoroge |
+| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** | Natasha tested the public Render API by sending prediction requests and checking the HTTP statuses and response bodies. Her work covered how to verify a deployed API through its prediction endpoints. |
 
 **Member 3:**
 
 | **Details**                                                                                                                           | **Comment** |
 |:--------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| **Student ID**                                                                                                                        |             |
-| **Name**                                                                                                                              |             |
-| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** |             |
+| **Student ID**                                                                                                                        | 152384 |
+| **Name**                                                                                                                              | Melvin Muriithi |
+| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** | Melvin implemented a Flask API serving the four saved D10 models and pinned `mlxtend` to a version compatible with scikit-learn 1.6.1. His work covered loading saved artifacts into Flask and managing dependency compatibility. [melvin-api](https://github.com/BI-course/smm-202604-D10/tree/melvin-api), [melvin-api-pr](https://github.com/BI-course/smm-202604-D10/tree/melvin-api-pr) |
 
 **Member 4:**
 
 | **Details**                                                                                                                           | **Comment** |
 |:--------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| **Student ID**                                                                                                                        |             |
-| **Name**                                                                                                                              |             |
-| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** |             |
+| **Student ID**                                                                                                                        | 152142 |
+| **Name**                                                                                                                              | Vanessa Warui |
+| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** | Vanessa ran the four model examples against the local Flask server and through Docker with Gunicorn and Nginx. She compared the responses across the two environments and checked how requests reached the API through the reverse proxy. |
 
 **Member 5:**
 
 | **Details**                                                                                                                           | **Comment** |
 |:--------------------------------------------------------------------------------------------------------------------------------------|:------------|
-| **Student ID**                                                                                                                        |             |
-| **Name**                                                                                                                              |             |
-| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** |             |
+| **Student ID**                                                                                                                        | 165042 |
+| **Name**                                                                                                                              | Ibrahim Omoi |
+| **What part of the lab did you personally<br/>contribute to (provide a link to the<br/>branch(es)), and what did you learn from it?** | Ibrahim traced all four endpoints in `api.py` from the saved artifacts to their predictions or recommendations. He tested the farmer-segmentation endpoint locally and confirmed that it returned HTTP 200 and the expected cluster. He learned how the API loads the artifacts once at startup and why the saved models require a compatible scikit-learn version. [Branch](https://github.com/BI-course/smm-202604-D10/tree/ibrahim-artifact-review) · [Artifact review report](https://github.com/BI-course/smm-202604-D10/blob/ibrahim-artifact-review/artifact-inference-review.md) |
 
 ## Chosen Level of Difficulty
 
-**Specify the chosen level of difficulty** (baseline, intermediate, or advanced):
+**Specify the chosen level of difficulty** (baseline, intermediate, or advanced): Intermediate
 
 ## Video Demonstration
 
@@ -62,7 +62,7 @@ At minimum, the video must show, in one continuous walkthrough:
 
 Note that you are required to submit the link to the video and NOT the video itself. The video should NOT be uploaded to your repository—that would be a misuse of GitHub.
 
-**Link to the video:**
+**Link to the video:** [D10 Intermediate lab demonstration](https://drive.google.com/file/d/1VqV_0z_ca7tssnK5qOdg6fwu4VdyU4eP/view?usp=sharing)
 
 ## Public URLs
 
@@ -70,7 +70,7 @@ Fill in only the rows that apply to your chosen difficulty level (see Part C bel
 
 | **Deployment target**                             | **URL** |
 |:--------------------------------------------------|:--------|
-| Render (the full `api.py`, all endpoints)         |         |
+| Render (the full `api.py`, all endpoints)         | https://smm-202604-d10.onrender.com |
 | Hugging Face Space (Gradio, one tab per model)    |         |
 | Streamlit Community Cloud app (one tab per model) |         |
 
