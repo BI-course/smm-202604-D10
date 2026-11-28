@@ -46,25 +46,34 @@ The other four files (`apriori_recommendation_rules`, `kmeans_mall_customer_segm
 
 ## 4. Local request and response
 
-Command run (API started in terminal 1 with `.\.venv\Scripts\python.exe api.py`):
+I started the API locally with `.\.venv\Scripts\python.exe api.py` (Python 3.12, scikit-learn 1.6.1) and sent the farmer-segmenter sample from a second PowerShell window.
+
+Command:
 
 ```powershell
-TO FILL IN: paste the exact command you ran
+'{"farm_size_acres":40.0,"annual_yield_tonnes":160.0,"income_per_acre_kes":85000.0,"years_farming_experience":16.0,"market_access_score":55.0}' | curl.exe --silent --show-error --write-out "`nHTTP status: %{http_code}`n" --header "Content-Type: application/json" --data-binary "@-" http://127.0.0.1:5000/api/v1/models/farmer-segmenter/predictions
 ```
 
-Response (status and body):
+Response:
 
 ```text
-TO FILL IN: paste the real output
+{
+  "assigned_cluster": 1,
+  "model": "K-Means (k=2, standardized features)",
+  "segment_name": "Established Commercial High-Yield Farmers"
+}
+
+HTTP status: 200
 ```
 
-Expected from the reference outputs: status 200, `assigned_cluster` 1, `segment_name` "Established Commercial High-Yield Farmers". The `assigned_cluster` and `segment_name` fields confirm the path traced in section 2: column selection (153), preprocessor (155), K-Means predict (156), label lookup (160).
+This matches the reference output (status 200, Cluster 1, Established Commercial High-Yield Farmers). The `assigned_cluster` and `segment_name` fields confirm the path traced in section 2: column selection (153), preprocessor (155), K-Means predict (156), label lookup (160).
 
 ## 5. What I learned
 
-TO FILL IN: one sentence in your own words. Starting point: the API trains nothing; it loads files saved in earlier labs once at startup and only runs them on each request, which keeps responses fast and repeatable but means the saved models must match the installed library versions.
+The API trains nothing: it loads four models saved in earlier labs once at startup and only runs them on each request, which keeps responses fast and repeatable but means the saved models must match the installed library versions (here scikit-learn 1.6.1).
 
 ## 6. Failures and retests
 
 - The first `git clone` failed with `Empty reply from server` (a network problem). I ran the same command again without changes and it succeeded (609 objects).
-- Local request: TO FILL IN (write "no failures" if it worked first time).
+- The first `pip install` failed with a Windows file-lock error (`WinError 32` on `flask\__init__.py`). I deleted `.venv`, recreated it and reinstalled, and the install succeeded.
+- My first request to `http://127.0.0.1:5000` failed with `Failed to connect` because the API was not running yet. After the API started, the same request returned status 200.
