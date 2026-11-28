@@ -1,7 +1,7 @@
 # Artifact-to-inference review: D10 API
 
 - **Author:** Ibrahim Omoi
-- **Branch:** `ibrahim-artifact-review` (from `origin/wayne-practice`)
+- **Branch:** `ibrahim-artifact-review`
 - **Date:** 2026-11-28
 - **API commit tested:** `53ff5d9c9fcaef73683e45bef2c9b334022614c5` (from `git rev-parse HEAD`, taken before committing this report)
 - **Repository:** https://github.com/BI-course/smm-202604-D10
