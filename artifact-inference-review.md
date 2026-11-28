@@ -70,7 +70,7 @@ This matches the reference output (status 200, Cluster 1, Established Commercial
 
 ## 5. What I learned
 
-The API trains nothing: it loads four models saved in earlier labs once at startup and only runs them on each request, which keeps responses fast and repeatable but means the saved models must match the installed library versions (here scikit-learn 1.6.1).
+I learned that the API doesn't train anything. It loads the saved model files once when it starts and only uses them to predict, so the saved files and the installed scikit-learn version have to match.
 
 ## 6. Failures and retests
 
